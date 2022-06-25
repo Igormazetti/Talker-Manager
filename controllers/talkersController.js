@@ -19,10 +19,21 @@ const getByName = async (req, res) => {
   }
 };
 
+const getById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const results = await talkersService.getById(id);
+    if (!results) return res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
+    res.status(200).json(results); 
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
   getAll,
   getByName,
-  // add,
+  getById,
   // update,
   // exclude,
 };

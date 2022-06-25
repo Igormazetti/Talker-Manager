@@ -11,7 +11,13 @@ const getByName = async (query) => {
   return result;
 };
 
+const getById = async (id) => {
+  const result = await talkersModel.getById(id);
+  return result;
+};
+
 module.exports = { 
   getAll,
   getByName,
+  getById,
 };

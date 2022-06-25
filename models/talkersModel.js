@@ -1,7 +1,7 @@
 const {
   readContentFile,
-  writeContentFile,
-  reWrite,
+  // writeContentFile,
+  // reWrite,
 } = require('../helpers/readWrite');
 
 const path = 'talker.json';
@@ -22,7 +22,14 @@ const getByName = async (query) => {
   return findTalker;
 };
 
+const getById = async (id) => {
+  const talkers = await readContentFile(path);
+  const findTalker = talkers.find((talker) => talker.id === Number(id));
+  return findTalker;
+};
+
 module.exports = {
   getAll,
   getByName,
+  getById,
 };

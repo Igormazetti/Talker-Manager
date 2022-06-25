@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const middleware = require('../middlewares/index');
-// const { readContentFile, writeContentFile, reWrite } = require('../services/readWrite');
+const { readContentFile, writeContentFile, reWrite } = require('../helpers/readWrite');
 const talkersController = require('../controllers/talkersController');
 
 const path = 'talker.json';
@@ -9,17 +9,7 @@ router.get('/', talkersController.getAll);
 
 router.get('/search', middleware.validateToken, talkersController.getByName);
 
-router.get('/:id', async (req, res) => {
-  const { id } = req.params;
-  const talkers = await readContentFile(path);
-  const findTalker = talkers.find((talker) => talker.id === Number(id));
-  if (!findTalker) {
- return res
-      .status(404)
-      .json({ message: 'Pessoa palestrante não encontrada' }); 
-}
-  res.status(200).json(findTalker);
-});
+router.get('/:id', talkersController.getById);
 
 router.post('/', middleware.validateToken, middleware.talkerCreationValidate,
  async (req, res) => {

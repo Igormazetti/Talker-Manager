@@ -1,4 +1,4 @@
-const createToken = require('../services/createToken');
+const createToken = require('../helpers/createToken');
 
 const tokenMiddleware = (req, res, next) => {
   const { email, password } = req.body;
