@@ -1,13 +1,11 @@
 const router = require('express').Router();
 const middleware = require('../middlewares/index');
-const { readContentFile, writeContentFile, reWrite } = require('../services/readWrite');
+// const { readContentFile, writeContentFile, reWrite } = require('../services/readWrite');
+const talkersController = require('../controllers/talkersController');
 
 const path = 'talker.json';
 
-router.get('/', async (_req, res) => {
-  const talkers = (await readContentFile(path)) || [];
-  res.status(200).json(talkers);
-});
+router.get('/', talkersController.getAll);
 
 router.get('/search', middleware.validateToken,
  async (req, res) => {
