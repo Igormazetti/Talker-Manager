@@ -1,6 +1,6 @@
 const talkersService = require('../services/talkersService');
 
-const getAll = async (req, res) => {
+const getAll = async (_req, res) => {
   try {
     const results = await talkersService.getAll();
     res.status(200).json(results);
@@ -9,9 +9,19 @@ const getAll = async (req, res) => {
   }
 };
 
+const getByName = async (req, res) => {
+  try {
+    const { q } = req.query;
+    const results = await talkersService.getByName(q);
+    return res.status(200).json(results);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
   getAll,
-  // getById,
+  getByName,
   // add,
   // update,
   // exclude,

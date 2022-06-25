@@ -7,18 +7,7 @@ const path = 'talker.json';
 
 router.get('/', talkersController.getAll);
 
-router.get('/search', middleware.validateToken,
- async (req, res) => {
-    const { q } = req.query;
-    const talkers = await readContentFile(path);
-
-    if (!q || q === '') return res.status(200).json(talkers);
-
-    const findTalker = talkers.filter((talker) => 
-    talker.name.toLowerCase().includes(q.toLowerCase()));
-
-    return res.status(200).json(findTalker);
-});
+router.get('/search', middleware.validateToken, talkersController.getByName);
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params;

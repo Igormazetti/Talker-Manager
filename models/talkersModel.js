@@ -11,6 +11,18 @@ const getAll = async () => {
   return talkers;
 };
 
+const getByName = async (query) => {
+  const talkers = await readContentFile(path);
+
+  if (!query || query === '') return talkers;
+
+  const findTalker = talkers.filter((talker) => 
+  talker.name.toLowerCase().includes(query.toLowerCase()));
+
+  return findTalker;
+};
+
 module.exports = {
   getAll,
+  getByName,
 };

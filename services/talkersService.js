@@ -6,6 +6,12 @@ const getAll = async () => {
   return result;
 };
 
+const getByName = async (query) => {
+  const result = await talkersModel.getByName(query);
+  return result;
+};
+
 module.exports = { 
   getAll,
+  getByName,
 };
