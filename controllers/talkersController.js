@@ -40,10 +40,34 @@ const add = async (req, res) => {
   }
 };
 
+const update = async (req, res) => {
+  try {
+    const speakerId = req.params;
+    // console.log(speakerId);
+    const speakerData = req.body;
+    // console.log(speakerData);
+    const results = await talkersService.update(speakerId, speakerData);
+    res.status(200).json(results);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const exclude = async (req, res) => {
+  try {
+    const id = req.params;
+    await talkersService.exclude(id);
+    res.status(204).end();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports = {
   getAll,
   getByName,
   getById,
   add,
-  // exclude,
+  update,
+  exclude,
 };

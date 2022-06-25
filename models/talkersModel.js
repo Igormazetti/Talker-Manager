@@ -1,7 +1,7 @@
 const {
   readContentFile,
   writeContentFile,
-  // reWrite,
+  reWrite,
 } = require('../helpers/readWrite');
 
 const path = 'talker.json';
@@ -38,9 +38,28 @@ const add = async (speakerData) => {
   return speaker;
 };
 
+const update = async (speakerId, speakerData) => {
+  const obj = { id: Number(speakerId), ...speakerData };
+  const currSpeakers = await readContentFile(path);
+  const findSpeaker = currSpeakers.filter(
+    (speaker) => speaker.id !== Number(speakerId),
+    );
+    const newArr = [...findSpeaker, obj];
+    const speaker = await reWrite(path, newArr);
+    return speaker;
+};
+
+const exclude = async (speakerId) => {
+  const currSpeakers = await readContentFile(path);
+  const deleted = currSpeakers.filter((speaker) => speaker.id !== Number(speakerId));
+  await reWrite(path, deleted);
+};
+
 module.exports = {
   getAll,
   getByName,
   getById,
   add,
+  update,
+  exclude,
 };

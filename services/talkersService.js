@@ -1,5 +1,10 @@
 const talkersModel = require('../models/talkersModel');
 const talkerCreationSchema = require('../schemas/talkerCreationSchema');
+const {
+  readContentFile,
+} = require('../helpers/readWrite');
+
+const path = 'talker.json';
 
 const getAll = async () => {
   const result = await talkersModel.getAll();
@@ -33,9 +38,25 @@ const add = async (speakerData) => {
   return result;
 };
 
+const update = async (speakerId, speakerData) => {
+  const { id } = speakerId;
+  const result = await talkersModel.update(id, speakerData);
+  const talkers = await readContentFile(path);
+  const verify = talkers.some((speaker) => speaker.id === Number(speakerId));
+  if (!verify) return { message: 'Speaker not found' };
+
+  return result;
+};
+
+const exclude = async (speakerId) => {
+ await talkersModel.exclude(speakerId);
+};
+
 module.exports = { 
   getAll,
   getByName,
   getById,
   add,
+  update,
+  exclude,
 };
