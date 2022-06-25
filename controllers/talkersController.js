@@ -43,9 +43,7 @@ const add = async (req, res) => {
 const update = async (req, res) => {
   try {
     const speakerId = req.params;
-    // console.log(speakerId);
     const speakerData = req.body;
-    // console.log(speakerData);
     const results = await talkersService.update(speakerId, speakerData);
     res.status(200).json(results);
   } catch (err) {

@@ -40,10 +40,10 @@ const add = async (speakerData) => {
 
 const update = async (speakerId, speakerData) => {
   const { id } = speakerId;
-  const result = await talkersModel.update(id, speakerData);
   const talkers = await readContentFile(path);
   const verify = talkers.some((speaker) => speaker.id === Number(speakerId));
   if (!verify) return { message: 'Speaker not found' };
+  const result = await talkersModel.update(id, speakerData);
 
   return result;
 };

@@ -50,8 +50,9 @@ const update = async (speakerId, speakerData) => {
 };
 
 const exclude = async (speakerId) => {
+  const { id } = speakerId;
   const currSpeakers = await readContentFile(path);
-  const deleted = currSpeakers.filter((speaker) => speaker.id !== Number(speakerId));
+  const deleted = currSpeakers.filter((speaker) => speaker.id !== Number(id));
   await reWrite(path, deleted);
 };
 
