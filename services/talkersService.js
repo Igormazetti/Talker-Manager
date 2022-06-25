@@ -24,17 +24,15 @@ const getById = async (id) => {
 
 const add = async (speakerData) => {
   const { name, age, talk } = speakerData;
-
-  const result = await talkersModel.add(speakerData);
   
   const { error } = talkerCreationSchema.validate({ name, talk });
   if (error) return { message: error.message };
   if (!age || age === null) {
     return { message: 'O campo "age" é obrigatório' };
   }
+  if (age < 18) return { message: 'A pessoa palestrante deve ser maior de idade' };
 
-  if (speakerData.age < 18) return { message: 'A pessoa palestrante deve ser maior de idade' };
-
+  const result = await talkersModel.add(speakerData);
   return result;
 };
 
@@ -44,7 +42,6 @@ const update = async (speakerId, speakerData) => {
   const verify = talkers.some((speaker) => speaker.id === Number(speakerId));
   if (!verify) return { message: 'Speaker not found' };
   const result = await talkersModel.update(id, speakerData);
-
   return result;
 };
 
