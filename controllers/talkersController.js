@@ -30,10 +30,20 @@ const getById = async (req, res) => {
   }
 };
 
+const add = async (req, res) => {
+  try {
+    const data = req.body;
+    const results = await talkersService.add(data);
+    return res.status(201).json(results);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
   getAll,
   getByName,
   getById,
-  // update,
+  add,
   // exclude,
 };

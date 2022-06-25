@@ -1,6 +1,6 @@
 const {
   readContentFile,
-  // writeContentFile,
+  writeContentFile,
   // reWrite,
 } = require('../helpers/readWrite');
 
@@ -28,8 +28,19 @@ const getById = async (id) => {
   return findTalker;
 };
 
+const add = async (speakerData) => {
+  const idNumber = await readContentFile(path);
+  const newSpeaker = {
+    id: idNumber.length + 1,
+    ...speakerData,
+  };
+  const speaker = await writeContentFile(path, newSpeaker);
+  return speaker;
+};
+
 module.exports = {
   getAll,
   getByName,
   getById,
+  add,
 };

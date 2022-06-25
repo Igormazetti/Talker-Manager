@@ -11,16 +11,7 @@ router.get('/search', middleware.validateToken, talkersController.getByName);
 
 router.get('/:id', talkersController.getById);
 
-router.post('/', middleware.validateToken, middleware.talkerCreationValidate,
- async (req, res) => {
-    const idNumber = await readContentFile(path) || [];
-    const newTalker = {
-      id: idNumber.length + 1,
-      ...req.body,
-    };
-    const talker = await writeContentFile(path, newTalker);
-    return res.status(201).json(talker);
-  });
+router.post('/', middleware.validateToken, talkersController.add);
 
 router.put('/:id', middleware.validateToken, middleware.talkerCreationValidate,
  async (req, res) => {
